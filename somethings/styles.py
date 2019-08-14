@@ -160,6 +160,87 @@ if 'hello' in d:
 
 
 
+"""
+    -------------------------------------
+"""
 
-# needlessly allocates a list of all (gpa, name) entires in memory
-valedictorian = max([(student.gpa, student.name) for student in graduates])
+# Bad
+[print(x) for x in sequence]
+
+
+# Good
+for x in sequence:
+    print(x)
+
+
+
+"""
+    Filtering in list 
+"""
+
+# Bad
+# Filter elements greater than 4
+a = [3, 4, 5]
+for i in a:
+    if i > 4:
+        a.remove(i)
+
+
+
+"""
+    Don't make multiple passes through the list
+"""
+while i in a:
+    a.remove(i)
+
+sequence = [1, 2, 5, 6, 7, 9]
+
+
+
+"""
+    Change sequence     
+"""
+x = 2
+print(id(sequence))
+sequence[::] = [value for value in sequence if value != x]
+print(id(sequence))
+
+# comprehensions create a new list object
+filtered_values = [value for value in sequence if value != x]
+print(id(filtered_values))
+
+# generators don't create another list
+filtered_values = (value for value in sequence if value != x)
+
+
+
+
+
+"""
+    Modifying the values in a list
+    Remember that assignment never creates a new object.
+    If two or more variables refer to the same list, changing one of them changes them all.
+"""
+# Bad not use
+
+# Add three to all list members.
+a = [3, 4, 5]
+b = a                     # a and b refer to the same list object
+
+for i in range(len(a)):
+    a[i] += 3             # b[i] also changes
+
+# Good you should use it
+a = [3, 4, 5]
+b = a
+
+# assign the variable "a" to a new list without changing "b"
+a = [i + 3 for i in a]
+
+# Use enumerate keep a count in list
+a = [3, 4, 5]
+for i, item in enumerate(a):
+    print(i, item)
+
+
+
